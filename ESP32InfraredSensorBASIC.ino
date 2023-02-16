@@ -21,6 +21,8 @@
 
 #include <Wire.h>
 #define I2C_SLAVE_ADDR 0x04 // 4 in hexadecimal
+#define HIGH 1
+#define LOW -1
 
 void setup()
 {
@@ -48,26 +50,30 @@ int ServoAngle = 85;
 
 void loop()
 {
-  if((IR3 == HIGH) && (IR4 == HIGH))
+  ReadIR3 = digitalRead(IR3);
+  ReadIR4 = digitalRead(IR4);
+ 
+   
+  if((ReadIR3 == HIGH) && (ReadIR4 == HIGH))
   {
     LeftMotor = 230;
     RightMotor = 230;
     ServoAngle = 85;
 
   }
-  else if((IR3 == HIGH) &&(IR4 == LOW))
+  else if((ReadIR3 == HIGH) &&(ReadIR4 == LOW))
   {
     LeftMotor = 80;
     RightMotor = 230;
     ServoAngle = 40;
   }
-    else if((IR3 == LOW) &&(IR4 == HIGH))
+    else if((ReadIR3 == LOW) &&(ReadIR4 == HIGH))
   {
     LeftMotor = 230;
     RightMotor = 80;
     ServoAngle = 120;
   }
-    else if((IR3 == LOW) &&(IR4 == LOW))
+    else if((ReadIR3 == LOW) &&(ReadIR4 == LOW))
   {
     LeftMotor = 0;
     RightMotor = 0;
